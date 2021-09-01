@@ -3,6 +3,6 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 
   tags = {
-    owner = "${var.owner}"
+    owner = var.owner
   }
 }

@@ -6,7 +6,7 @@ resource "azurerm_virtual_machine" "vault_vm" {
   name                  = "${var.prefix}-vault-vm"
   location              = var.location
   resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = ["${azurerm_network_interface.vault_nic.id}"]
+  network_interface_ids = [azurerm_network_interface.vault_nic.id]
   vm_size               = var.vm_size
 
   identity {
@@ -30,7 +30,7 @@ resource "azurerm_virtual_machine" "vault_vm" {
   os_profile {
     computer_name  = "${var.prefix}-vault-vm"
     admin_username = "azureuser"
-    custom_data    = base64encode("${data.template_file.vault_setup.rendered}")
+    custom_data    = base64encode(data.template_file.vault_setup.rendered)
   }
 
   os_profile_linux_config {
@@ -47,6 +47,6 @@ resource "azurerm_virtual_machine" "vault_vm" {
   }
 
   tags = {
-    owner = "${var.owner}"
+    owner = var.owner
   }
 }

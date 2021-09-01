@@ -49,7 +49,7 @@ LogLevel = DEBUG
 [DATABASE]
 Address=${mysql_addr}
 Port=3306
-{{ with secret "data_protection/database/creds/vault-demo-app" -}}
+{{ with secret "data_protection/database/creds/vault-demo-app-long" -}}
 User={{ .Data.username }}@${mysql_name}
 Password={{ .Data.password }}
 {{- end }}

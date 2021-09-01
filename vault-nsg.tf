@@ -40,7 +40,7 @@ resource "azurerm_network_security_group" "vault_nsg" {
   }
 
   tags = {
-    owner = "${var.owner}"
+    owner = var.owner
   }
 }
 
@@ -57,7 +57,7 @@ resource "azurerm_network_interface" "vault_nic" {
 }
 
   tags = {
-    owner = "${var.owner}"
+    owner = var.owner
   }
 }
 

@@ -78,6 +78,10 @@ path "data_protection/database/creds/vault-demo-app" {
     capabilities = ["read"]
 }
 
+path "data_protection/database/creds/vault-demo-app-long" {
+    capabilities = ["read"]
+}
+
 path "data_protection/transit/encrypt/customer-key" {
     capabilities = ["create", "read", "update"]
 }
@@ -136,7 +140,7 @@ vault write data_protection/database/config/wsmysqldatabase \
 vault write data_protection/database/roles/vault-demo-app-long \
     db_name=wsmysqldatabase \
     creation_statements="CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT ALL ON my_app.* TO '{{name}}'@'%';" \
-    default_ttl="1h" \
+    default_ttl="3h" \
     max_ttl="24h"
 
 # Create a role with a shorter TTL

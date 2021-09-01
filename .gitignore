@@ -8,3 +8,7 @@
 # .tfvars files
 *.tfvars
 .env
+
+*.lock
+*.tfplan
+*.lock.hcl

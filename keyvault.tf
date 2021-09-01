@@ -12,14 +12,14 @@ resource "azurerm_key_vault" "keyvault" {
   sku_name = "standard"
 
   tags = {
-    owner = "${var.owner}"
+    owner = var.owner
   }
 
   access_policy {
     tenant_id = data.azurerm_client_config.current.tenant_id
 
-    object_id = var.object_id
-    #object_id = data.azurerm_client_config.current.object_id
+    #object_id = var.object_id
+    object_id = data.azurerm_client_config.current.object_id
 
     key_permissions = [
       "get",
@@ -39,6 +39,7 @@ resource "azurerm_key_vault" "keyvault" {
 }
 
 resource "azurerm_key_vault_key" "generated" {
+  depends_on   = [azurerm_key_vault.keyvault]
   name         = "${var.prefix}-key"
   key_vault_id = azurerm_key_vault.keyvault.id
   key_type     = "RSA"
@@ -55,5 +56,5 @@ resource "azurerm_key_vault_key" "generated" {
 }
 
 output "key_vault_name" {
-  value = "${azurerm_key_vault.keyvault.name}"
+  value = azurerm_key_vault.keyvault.name
 }

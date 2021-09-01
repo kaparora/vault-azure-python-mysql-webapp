@@ -5,6 +5,6 @@ resource "azurerm_public_ip" "webapp_ip" {
   allocation_method   = "Dynamic"
 
   tags = {
-    owner = "${var.owner}"
+    owner = var.owner
   }
 }

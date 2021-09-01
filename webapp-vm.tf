@@ -6,7 +6,7 @@ resource "azurerm_virtual_machine" "webapp" {
   name                  = "${var.prefix}-webapp-vm"
   location              = var.location
   resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = ["${azurerm_network_interface.webapp_nic.id}"]
+  network_interface_ids = [azurerm_network_interface.webapp_nic.id]
   vm_size               = var.vm_size
 
   identity {
@@ -23,14 +23,14 @@ resource "azurerm_virtual_machine" "webapp" {
   storage_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "16.04.0-LTS"
+    sku       = "18.04-LTS"
     version   = "latest"
   }
 
   os_profile {
     computer_name  = "${var.prefix}-webapp-vm"
     admin_username = "azureuser"
-    custom_data    = base64encode("${data.template_file.webapp_setup.rendered}")
+    custom_data    = base64encode(data.template_file.webapp_setup.rendered)
   }
 
   os_profile_linux_config {
@@ -47,6 +47,6 @@ resource "azurerm_virtual_machine" "webapp" {
   }
 
   tags = {
-    owner = "${var.owner}"
+    owner = var.owner
   }
 }
